@@ -25,6 +25,7 @@ def getImg(url):
 		img = urllib2.urlopen(img_url)
 		localfile.write(img.read())
 		localfile.close()
+		print os.chdir('../../')
 
 if __name__ == '__main__':
 	print sys.argv[0]

@@ -6,5 +6,5 @@ function getBranch() {
 
 git add .
 savebranch="$(getBranch)"
-git commit -m "updated branch:$savebranch"
+git commit
 

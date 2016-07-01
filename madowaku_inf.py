@@ -19,7 +19,7 @@ if __name__ == '__main__':
         return word
 
     def getImg(url):
-        print os.chdir("/Users/shinya/Scraping/img")
+        print os.chdir("Scraping/img")
         print os.getcwd()
         localfile = open(os.path.basename(url),'wb')
         img_url = "http://madowaku.com/"+ url

@@ -7,4 +7,5 @@ function getBranch() {
 git add .
 savebranch="$(getBranch)"
 git commit
+git push l-i-p master
 

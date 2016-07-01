@@ -3,18 +3,12 @@
 if __name__ == '__main__':
 
     from urllib2 import urlopen
-<<<<<<< HEAD
-=======
     import urllib2
->>>>>>> ccb6e77f66d61a3d2251d1a247029f87c999f70b
     from bs4 import BeautifulSoup
     from urllib2 import HTTPError
     from urllib2 import URLError
     import re
-<<<<<<< HEAD
-=======
     import os
->>>>>>> ccb6e77f66d61a3d2251d1a247029f87c999f70b
 
     def search_word(text, pattern):
         try:
@@ -24,8 +18,6 @@ if __name__ == '__main__':
             word = "NULL"  # 正規表現に引っかからない場合
         return word
 
-<<<<<<< HEAD
-=======
     def getImg(url):
         print os.chdir("/Users/shinya/Scraping/img")
         print os.getcwd()
@@ -35,7 +27,6 @@ if __name__ == '__main__':
         localfile.write(img.read())
         localfile.close()
 
->>>>>>> ccb6e77f66d61a3d2251d1a247029f87c999f70b
     url = "http://madowaku.com/infomation.html"
     try:
         html = urlopen(url)
@@ -68,7 +59,6 @@ if __name__ == '__main__':
             josidoru = 1
             continue
         event_day = table[0].findAll('a')[0].get("name")
-<<<<<<< HEAD
         artist_name = table[0].findAll('a')[1].get_text().encode('utf-8')
         try:
             event_name = table[0].findAll("br")[1] \
@@ -76,7 +66,6 @@ if __name__ == '__main__':
         except:
             event_name = artist_name  # タイトルがない場合はアーティスト名をタイトルとする
         print event_day, artist_name, event_name
-=======
         artist_name = table[0].findAll('br')[0].get_text().encode('utf-8').strip()
         img = table[1].find('img').get("src")
         print "imgtest", img
@@ -87,14 +76,10 @@ if __name__ == '__main__':
         except:
             event_name = artist_name  # タイトルがない場合はアーティスト名をタイトルとする
         print event_day, "artist_name:", artist_name, "event_name:", event_name
->>>>>>> ccb6e77f66d61a3d2251d1a247029f87c999f70b
         detail = table[2].get_text().encode('utf-8')
         open_time = search_word(detail, open_pattern)
         start_time = search_word(detail, start_pattern)
         today_cost = search_word(detail, today_cost_pattern)
         event_cost = search_word(detail, pre_cost_pattern)
         print open_time, start_time, today_cost, event_cost
-<<<<<<< HEAD
-=======
         print ""
->>>>>>> ccb6e77f66d61a3d2251d1a247029f87c999f70b

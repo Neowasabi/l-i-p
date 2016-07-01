@@ -61,9 +61,9 @@ if __name__ == '__main__':
 		if josidoru == 0:
 			josidoru = 1
 			continue
-		event_day = table[0].findAll('a')[0].get("name")
-		artist_name = table[0].findAll('a')[1].get_text().encode('utf-8')
 		try:
+			event_day = table[0].findAll('a')[0].get("name")
+			artist_name = table[0].findAll('a')[1].get_text().encode('utf-8')
 			event_name = table[0].findAll("br")[1] \
 			.get_text().encode('utf-8').strip()  # stripはbr削除
 		except:

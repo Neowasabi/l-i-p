@@ -18,7 +18,7 @@ def search_word(text, pattern):
 
 def getImg(url):
 		print os.getcwd()
-		# print os.chdir('./Scraping/img/')
+		print os.chdir('./Scraping/img/')
 		# print os.getcwd()
 		localfile = open(os.path.basename(url),'wb')
 		img_url = "http://madowaku.com/"+ url

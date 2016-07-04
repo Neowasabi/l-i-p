@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+
+#-*- coding: utf-8 -*-
 
 if __name__ == '__main__':
 
@@ -21,8 +22,8 @@ if __name__ == '__main__':
     def getImg(url):
         print os.chdir("/Users/shinya/Scraping/img")
         print os.getcwd()
-        localfile = open(os.path.basename(url),'wb')
-        img_url = "http://madowaku.com/"+ url
+        localfile = open(os.path.basename(url), 'wb')
+        img_url = "http://madowaku.com/" + url
         img = urllib2.urlopen(img_url)
         localfile.write(img.read())
         localfile.close()

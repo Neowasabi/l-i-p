@@ -33,8 +33,9 @@ if __name__ == '__main__':
         event_day_st = event[0].get_text().encode('utf-8')
         if line == 0:
             year_month = event_day_st
-            print "year", re.search("\d*(?=年)", year_month).group()
-            print "month", re.search("\d*(?=月)", year_month).group()
+            # print year_month
+            print "year", re.search("[0-9０-９]*(?=年)", year_month).group()
+            print "month", re.search("[0-9０-９]*(?=月)", year_month).group()
             line += 1
             continue
         if line == 1:
@@ -47,9 +48,9 @@ if __name__ == '__main__':
             continue
 
         abstract = event[2].get_text().encode('utf-8')
-        if event[2].find("br") is not None:
-            print "brtest"
-            abstract2 = event[2].findAll
+        # if event[2].find("br") is not None:
+        #     print "brtest"
+        #     abstract2 = event[2].findAll
         print "abstract", abstract
         detail = event[3].get_text().encode('utf-8')
         print "detail", detail
@@ -72,7 +73,7 @@ if __name__ == '__main__':
         start_time = search_word(detail, start_pattern)
         today_cost = search_word(detail, today_cost_pattern)
         event_cost = search_word(detail, pre_cost_pattern)
-        print "題名:",abstract2
+        print "題名:",abstract
         print "会場:", open_time, "開演:", start_time, "当日:", today_cost, "前売:", event_cost
         print "============================================"
 #    josidoru = 0  # 女子ドルフラグ

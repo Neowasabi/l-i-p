@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 
 
@@ -20,7 +21,7 @@ class Event(object):  # こんなクラスのリストをmysqlに追加するモ
     remarks = None
 
     def introduce(self):
-        print self.event_name
+        print self.event_name, self.artist_name
 if __name__ == '__main__':
 
     from urllib2 import urlopen
@@ -33,8 +34,6 @@ if __name__ == '__main__':
     reload(sys)
     sys.setdefaultencoding("utf-8")
 
-    print sys.getdefaultencoding()
-   
     mysql = mysql_lip.Mysql()
 # 　正規表現置き場
     open_pattern = r"(開場)\d*:\d*"
@@ -51,7 +50,10 @@ if __name__ == '__main__':
             word = re.search("\d*(:|,)\d*", word).group()
         except:
             word = "NULL"  # 正規表現に引っかからない場合
-        return word
+        try:
+            word = int(word.replace(",", ""))
+        finally:
+            return word
 
     url = "http://madowaku.com/schedule.1607.html"
     try:
@@ -77,14 +79,14 @@ if __name__ == '__main__':
         if re.match("\d*(\(|（).*(\)|）)", event_day_st) is None:  # 日付フォーマットになってるか確認します　１日に2個イベントあるとき
             abstract = event[2].get_text()
             if event[1].find("br") is None:
-                event_title = abstract
+                event_name = abstract
                 artist_name = abstract
             else:
-                event_title = event[1].findAll("br")[0].get_text().encode("utf-8")
+                event_name = event[1].findAll("br")[0].get_text().encode("utf-8")
                 # event[2]から題名を消したやつがartist_nameです
                 # tagの構造上これしか思いつきませんでした。
                 tmp = event[1].get_text()
-                artist_name = tmp.replace(event_title, "").encode("utf-8")
+                artist_name = tmp.replace(event_name, "").encode("utf-8")
 
                 detail = event[2].get_text().encode('utf-8')
                 open_time = search_word(detail, open_pattern)
@@ -93,31 +95,39 @@ if __name__ == '__main__':
                 event_cost = search_word(detail, pre_cost_pattern)
 
                 print "day", re.match("\d*", event_day_st).group()
-                print "題名:", event_title
+                print "題名:", event_name
                 print "アーティスト", artist_name
                 print "会場:", open_time, "開演:", start_time, "当日:", today_cost, "前売:", event_cost
                 print "============================================"
-                setattr(eventClass, artist_name, artist_name)
+#  こっちでクラスの変数に代入できなかった
+#                setattr(eventClass, artist_name, artist_name)
+#                setattr(eventClass, event_name, event_name.strip())
+#                setattr(eventClass, open_time, open_time)
+#                setattr(eventClass, start_time, start_time)
+#                setattr(eventClass, today_cost, today_cost)
+#                setattr(eventClass, event_cost, event_cost)
                 eventClass.artist_name = artist_name
+                eventClass.event_name = event_name.strip()
                 eventClass.open_time = open_time
-                print "testdayo", eventClass.event_name
-                eventClass.introduce()
+                eventClass.start_time = start_time
+                eventClass.today_cost = today_cost
+                eventClass.event_cost = event_cost
+
+                print eventClass.event_name
                 EventList.append(eventClass)
             continue
 
         abstract = event[2].get_text().encode('utf-8')
         if event[2].find("br") is None:
-            event_title = abstract
+            event_name = abstract
             artist_name = abstract
         else:
 
-
-
-            event_title = event[2].findAll("br")[0].get_text().encode('utf-8')
+            event_name = event[2].findAll("br")[0].get_text().encode('utf-8')
             # event[2]から題名を消したやつがartist_nameです
             # tagの構造上これしか思いつきませんでした。
             tmp = event[2].get_text()
-            artist_name = tmp.replace(event_title, "")
+            artist_name = tmp.replace(event_name, "")
 
         detail = event[3].get_text().encode('utf-8')
         open_time = search_word(detail, open_pattern)
@@ -126,15 +136,26 @@ if __name__ == '__main__':
         event_cost = search_word(detail, pre_cost_pattern)
 
         print "day", re.match("\d*", event_day_st).group()
-        print "題名:", event_title
-#        print "アーティスト", artist_name
+        print "題名:", event_name.strip()
+        print "アーティスト", artist_name
         print "会場:", open_time, "開演:", start_time, "当日:", today_cost, "前売:", event_cost
         print "============================================"
+#  こっちでクラスの変数に代入できませんでした
+#        setattr(eventClass, artist_name, artist_name)
+#        setattr(Event, event_name, event_name.strip())
+#        setattr(eventClass, artist_name, artist_name)
+#        setattr(eventClass, open_time, open_time)
+#        setattr(eventClass, open_time, open_time)
+#        setattr(eventClass, start_time, start_time)
+#        setattr(eventClass, today_cost, today_cost)
+#        setattr(eventClass, event_cost, event_cost)
 
-        eventClass.event_name = event_title.strip()
         eventClass.artist_name = artist_name
+        eventClass.event_name = event_name.strip()
         eventClass.open_time = open_time
-        print "testdayo", eventClass.event_name
-        eventClass.introduce()
+        eventClass.start_time = start_time
+        eventClass.today_cost = today_cost
+        eventClass.event_cost = event_cost
+        print eventClass.event_name
         EventList.append(eventClass)
-    mysql.classTest(EventList)
+#    mysql.classTest(EventList)

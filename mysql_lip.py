@@ -19,7 +19,7 @@ class Mysql(object):
         reload(sys)
         sys.setdefaultencoding('utf-8')
         try:
-            self.connector = MySQLdb.connect(host='mysql533.db.sakura.ne.jp', db="l-i-p_test", user='l-i-p', passwd='smzo7gg8', charset='utf8')
+            self.connector = MySQLdb.connect(host='###', db="l-i-p_test", user='###', passwd='###', charset='utf8')
             print "success"
         except:
             print "fail"

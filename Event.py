@@ -7,7 +7,6 @@ class Event(object):
 
     def __init__(self, hall_id, event_url, getted_date, getted_url):
         # ここには取ってきたイベントの情報を
-        print "debug"
         self.event_name = "null"
         self.event_day = "00010101"  # YYYY-MM-DD
         self.day_segment = "null"

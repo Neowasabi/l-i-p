@@ -1,0 +1,7 @@
+/.idea/
+mysq_lip.py
+*.pyc
+*.txt
+/Scraping/
+*.jpg
+/l-i-p/

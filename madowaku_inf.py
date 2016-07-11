@@ -44,7 +44,8 @@ def search_word(text, pattern):
 
 def getImg(url):
     print os.getcwd()
-    print os.chdir('./Scraping/img/')
+#    print os.chdir('./Scraping/img/')
+    print os.chdir('./../www/img')
     # print os.getcwd()
     localfile = open(os.path.basename(url), 'wb')
     img_url = "http://madowaku.com/" + url
@@ -119,13 +120,15 @@ if __name__ == '__main__':
         print open_time, start_time, today_cost, event_cost
         print ""
         eventClass.event_name = event_name
-        eventClass.event_day = "2016" + event_day  # ここどうしよう
+        tmp_event_day = "2016" + event_day  # ここどうしよう
+        eventClass.event_day = tmp_event_day.encode('utf-8')  # ここどうしよう
         eventClass.open_time = open_time
         eventClass.start_time = start_time
         eventClass.event_cost_int = today_cost
         eventClass.event_cost = event_cost
         eventClass.artist_name = artist_name
-        eventClass.event_pic = "./Scraping/img/"+img
+        event_pic = "/home/l-i-p/www/img/"+img
+        eventClass.event_pic = event_pic.encode('utf-8') 
         EventList.append(eventClass)
     print "kokko"
     mysql.insertSql(EventList)

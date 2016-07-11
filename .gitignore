@@ -1,4 +1,5 @@
 /.idea/
+<<<<<<< HEAD
 ./mysq_lip.py
 *.pyc
 *.txt
@@ -8,3 +9,8 @@
 *.txt
 /Scraping/
 *.jpg
+=======
+*.txt
+/Scraping/
+*.jpg
+>>>>>>> 287ef155a57049ec56bd643323842e44a160985f

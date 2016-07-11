@@ -180,6 +180,59 @@ if __name__ == '__main__':
 	today_cost_pattern = r"(当日)\d*,\d*円"
 	pre_cost_pattern = r"(前売)\d*,\d*円"
 
+import re
+import os
+import sys
+
+def search_word(text, pattern):
+		try:
+			word = re.search(pattern, text).group()
+			word = re.search("\d*(:|,)\d*", word).group()
+		except:
+			word = "NULL"  # 正規表現に引っかからない場合
+		return word
+
+def getImg(url):
+		print os.getcwd()
+		print os.chdir('./Scraping/img/')
+		# print os.getcwd()
+		localfile = open(os.path.basename(url),'wb')
+		img_url = "http://madowaku.com/"+ url
+		img = urllib2.urlopen(img_url)
+		localfile.write(img.read())
+		localfile.close()
+		print os.chdir('../../')
+
+if __name__ == '__main__':
+	print sys.argv[0]
+
+	url = "http://madowaku.com/infomation.html"
+	try:
+		html = urlopen(url)
+	except HTTPError as e:  # サーバ落ちた時とかのエラーとか
+		print(e)
+	except URLError as e:
+		print("The server colud not be found")
+
+	bsObj = BeautifulSoup(html, "html.parser")
+	child = bsObj.find("center").findChildren("table")
+
+	#  冗長　tables[table,table,table...]tableの中に三つの<td>段落が入ってるよ。
+	tables = []
+	for table in child:
+		one_table = []
+		for one_tr in table.findAll("tr"):
+			for one_td in one_tr.findAll("td"):
+				one_table.append(one_td)
+		tables.append(one_table)
+
+	# 　正規表現置き場
+	open_pattern = r"(開場)\d*:\d*"
+	start_pattern = r"(開演)\d*:\d*"
+	today_cost_pattern = r"(当日)\d*,\d*円"
+	pre_cost_pattern = r"(前売)\d*,\d*円"
+
+>>>>>>> 287ef155a57049ec56bd643323842e44a160985f
 	josidoru = 0  # 女子ドルフラグ
 	for table in tables:
 		if josidoru == 0:
